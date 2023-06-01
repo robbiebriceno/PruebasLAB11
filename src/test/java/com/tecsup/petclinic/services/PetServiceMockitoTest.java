@@ -29,7 +29,7 @@ public class PetServiceMockitoTest {
 
     private PetService petService;
 
-    @Mock //Bean
+    @Mock 
     private PetRepository repository;
 
     @BeforeEach

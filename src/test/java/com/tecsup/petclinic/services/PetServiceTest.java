@@ -7,9 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -18,13 +16,14 @@ import com.tecsup.petclinic.exception.PetNotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 @SpringBootTest
 @Slf4j
 public class PetServiceTest {
 
     @Autowired
     private PetService petService;
+    
+    
 
     @Test
     public void testFindPetById() {
@@ -103,10 +102,10 @@ public class PetServiceTest {
 
         log.info("PET CREATED :" + petCreated.toString());
 
-        assertNotNull(pet.getId());
-        assertEquals(PET_NAME, pet.getName());
-        assertEquals(OWNER_ID, pet.getOwnerId());
-        assertEquals(TYPE_ID, pet.getTypeId());
+        assertNotNull(petCreated.getId());
+        assertEquals(PET_NAME, petCreated.getName());
+        assertEquals(OWNER_ID, petCreated.getOwnerId());
+        assertEquals(TYPE_ID, petCreated.getTypeId());
 
     }
 
