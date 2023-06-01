@@ -88,11 +88,7 @@ public class PetServiceTest {
     }
 
     /**
-     * To get ID generate , you need
-     * setup in id primary key in your
-     * entity this annotation :
      *
-     * @GeneratedValue(strategy = GenerationType.IDENTITY)
      */
     @Test
     public void testCreatePet() {
