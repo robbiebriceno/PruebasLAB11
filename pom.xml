@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tecsup</groupId>
-	<artifactId>PetClinic</artifactId>
+	<artifactId>petclinic</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>PetClinic</name>
 	<description>PetClinic project for Spring Boot</description>
@@ -48,7 +48,6 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>${org.projectlombok.version}</version>
 			<optional>true</optional>
 		</dependency>
 

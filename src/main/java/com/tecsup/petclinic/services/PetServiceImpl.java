@@ -104,7 +104,7 @@ public class PetServiceImpl implements PetService {
 
 		pets.stream().forEach(pet -> log.info("" + pet));
 
-		return pets;
+		return pets; 
 	}
 
 	/**

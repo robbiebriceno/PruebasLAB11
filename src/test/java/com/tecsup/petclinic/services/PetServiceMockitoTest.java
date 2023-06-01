@@ -1,23 +1,30 @@
 package com.tecsup.petclinic.services;
 
 
-import com.tecsup.petclinic.entities.Pet;
-import com.tecsup.petclinic.exception.PetNotFoundException;
-import com.tecsup.petclinic.repositories.PetRepository;
-import com.tecsup.petclinic.util.TObjectCreator;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.tecsup.petclinic.entities.Pet;
+import com.tecsup.petclinic.exception.PetNotFoundException;
+import com.tecsup.petclinic.repositories.PetRepository;
+import com.tecsup.petclinic.util.TObjectCreator;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@ExtendWith(MockitoExtension.class)
 public class PetServiceMockitoTest {
 
     private PetService petService;
@@ -27,7 +34,6 @@ public class PetServiceMockitoTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
         this.petService = new PetServiceImpl(this.repository);
     }
 
@@ -117,10 +123,6 @@ public class PetServiceMockitoTest {
     @Test
     public void testCreatePet() {
 
-        String PET_NAME = "Ponky";
-        int OWNER_ID = 1;
-        int TYPE_ID = 1;
-
         Pet newPet = TObjectCreator.newPet();
         Pet newCreatePet = TObjectCreator.newPetCreated();
 
@@ -167,9 +169,11 @@ public class PetServiceMockitoTest {
         petCreated.setOwnerId(UP_OWNER_ID);
         petCreated.setTypeId(UP_TYPE_ID);
 
+        Pet newUpdate = petCreated;
+        
         // Create
         Mockito.when(this.repository.save(petCreated))
-                .thenReturn(petCreated);
+                .thenReturn(newUpdate);
 
         // Execute update
         Pet upgradePet = this.petService.update(petCreated);
