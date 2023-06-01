@@ -1,16 +1,23 @@
 package com.tecsup.petclinic.services;
 
 
-import com.tecsup.petclinic.entities.Pet;
-import com.tecsup.petclinic.exception.PetNotFoundException;
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.tecsup.petclinic.entities.Pet;
+import com.tecsup.petclinic.exception.PetNotFoundException;
+
+import lombok.extern.slf4j.Slf4j;
+
 
 @SpringBootTest
 @Slf4j
@@ -32,7 +39,8 @@ public class PetServiceTest {
             fail(e.getMessage());
         }
  
-        log.info("" + pet);
+        log.info(pet.toString());
+        
         assertEquals(NAME, pet.getName());
     }
 
@@ -97,7 +105,7 @@ public class PetServiceTest {
 
         Pet petCreated = this.petService.create(pet);
 
-        log.info("PET CREATED :" + petCreated);
+        log.info("PET CREATED :" + petCreated.toString());
 
         assertNotNull(pet.getId());
         assertEquals(PET_NAME, pet.getName());
