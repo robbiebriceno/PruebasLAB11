@@ -18,6 +18,9 @@ CREATE TABLE IF NOT EXISTS vets (
 CREATE TABLE IF NOT EXISTS specialties (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(80),
+  office VARCHAR(40),
+  h_open INT(4),
+  h_close INT(4),
   INDEX(name)
 ) engine=InnoDB;
 
