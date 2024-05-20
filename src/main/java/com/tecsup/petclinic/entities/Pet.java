@@ -1,6 +1,6 @@
 package com.tecsup.petclinic.entities;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
