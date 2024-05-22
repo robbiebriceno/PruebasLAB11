@@ -1,15 +1,12 @@
 package com.tecsup.petclinic.services;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.tecsup.petclinic.repositories.PetRepository;
 import org.junit.jupiter.api.Test;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,9 +37,6 @@ public class PetServiceTest {
         } catch (PetNotFoundException e) {
             fail(e.getMessage());
         }
- 
-        //log.info(pet.toString());
-        
         assertEquals(NAME_EXPECTED, pet.getName());
     }
 

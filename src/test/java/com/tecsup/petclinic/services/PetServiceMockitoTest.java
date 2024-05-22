@@ -1,6 +1,5 @@
 package com.tecsup.petclinic.services;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -44,6 +43,7 @@ public class PetServiceMockitoTest {
     public void testFindPetById() {
 
         Pet petExpected = TObjectCreator.getPet();
+        //Pet petExpected = new Pet(1,"Leo",1,1, null);
 
         Mockito.when(this.repository.findById(petExpected.getId()))
                 .thenReturn((Optional.of(petExpected)));
