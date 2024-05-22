@@ -42,14 +42,14 @@ public class PetServiceMockitoTest {
     @Test
     public void testFindPetById() {
 
-        Pet petExpected = TObjectCreator.getPet();
-        //Pet petExpected = new Pet(1,"Leo",1,1, null);
+        //Pet petExpected = TObjectCreator.getPet();
+        Pet petExpected = new Pet(1,"Leo",1,1, null);
 
-        Mockito.when(this.repository.findById(petExpected.getId()))
+        Mockito.when(this.repository.findById(1))
                 .thenReturn((Optional.of(petExpected)));
 
         try {
-            petExpected = this.petService.findById(petExpected.getId());
+            petExpected = this.petService.findById(1);
         } catch (PetNotFoundException e) {
             fail(e.getMessage());
         }
