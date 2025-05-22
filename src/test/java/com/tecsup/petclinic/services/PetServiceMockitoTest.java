@@ -16,7 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.tecsup.petclinic.entities.Pet;
-import com.tecsup.petclinic.exception.PetNotFoundException;
+import com.tecsup.petclinic.exceptions.PetNotFoundException;
 import com.tecsup.petclinic.repositories.PetRepository;
 import com.tecsup.petclinic.util.TObjectCreator;
 

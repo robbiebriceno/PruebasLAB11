@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import com.tecsup.petclinic.entities.Pet;
-import com.tecsup.petclinic.exception.PetNotFoundException;
+import com.tecsup.petclinic.exceptions.PetNotFoundException;
 import com.tecsup.petclinic.repositories.PetRepository;
 
 /**
@@ -18,7 +18,6 @@ import com.tecsup.petclinic.repositories.PetRepository;
 @Service
 @Slf4j
 public class PetServiceImpl implements PetService {
-
 
 	PetRepository petRepository;
 

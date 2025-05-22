@@ -2,6 +2,7 @@ package com.tecsup.petclinic.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
@@ -12,6 +13,7 @@ import java.sql.Date;
  *
  */
 @Entity(name = "pets")
+@NoArgsConstructor
 @Data
 public class Pet {
 
@@ -27,9 +29,6 @@ public class Pet {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "birth_date")
 	private Date birthDate;
-	
-	public Pet() {
-	}
 
 	public Pet(Integer id, String name, int type_id, int owner_id, Date birthDate) {
 		super();
