@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tecsup.petclinic.entities.Pet;
@@ -18,6 +19,7 @@ import com.tecsup.petclinic.repositories.PetRepository;
 @Service
 @Slf4j
 public class PetServiceImpl implements PetService {
+
 
 	PetRepository petRepository;
 
@@ -72,7 +74,9 @@ public class PetServiceImpl implements PetService {
 
 		if ( !pet.isPresent())
 			throw new PetNotFoundException("Record not found...!");
-			
+
+
+
 		return pet.get();
 	}
 
@@ -86,7 +90,7 @@ public class PetServiceImpl implements PetService {
 
 		List<Pet> pets = petRepository.findByName(name);
 
-		pets.stream().forEach(pet -> log.info("" + pet));
+		pets.forEach(pet -> log.info("" + pet));
 
 		return pets;
 	}
@@ -101,7 +105,7 @@ public class PetServiceImpl implements PetService {
 
 		List<Pet> pets = petRepository.findByTypeId(typeId);
 
-		pets.stream().forEach(pet -> log.info("" + pet));
+		pets.forEach(pet -> log.info("" + pet));
 
 		return pets; 
 	}
@@ -116,7 +120,7 @@ public class PetServiceImpl implements PetService {
 
 		List<Pet> pets = petRepository.findByOwnerId(ownerId);
 
-		pets.stream().forEach(pet -> log.info("" + pet));
+		pets.forEach(pet -> log.info("" + pet));
 
 		return pets;
 	}
