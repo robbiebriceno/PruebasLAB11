@@ -47,5 +47,4 @@ public class OwnerService {
         }
         ownerRepository.deleteById(id);
     }
-
 }
