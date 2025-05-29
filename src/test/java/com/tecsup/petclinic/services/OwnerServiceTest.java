@@ -40,7 +40,7 @@ public class OwnerServiceTest {
 	@Test
 	public void testFindOwnerById() {
 		Integer ID = 1;
-		String FIRST_NAME_EXPECTED = "lois";
+		String FIRST_NAME_EXPECTED = "pashita";
 
 		Owner owner = null;
 		try {
@@ -52,7 +52,30 @@ public class OwnerServiceTest {
 	}
 
 
+	@Test
+	public void testDeleteOwner() throws OwnerNotFoundException {
+		// Primero creamos un owner para luego eliminarlo
+		String FIRST_NAME = "pashita";
+		String LAST_NAME = "ruiz";
+		String ADDRESS = "Lima";
+		String CITY = "Lima";
+		String TELEPHONE = "942 574 612";
 
+		Owner owner = new Owner(FIRST_NAME, LAST_NAME, ADDRESS, CITY, TELEPHONE);
+		Owner createdOwner = ownerService.create(owner);
 
+		// Obtenemos el ID del owner creado
+		Integer ownerId = createdOwner.getId();
+
+		// Eliminamos el owner
+		ownerService.delete(ownerId);
+
+		// Verificamos que ya no exista en la base de datos
+		assertThrows(OwnerNotFoundException.class, () -> {
+			ownerService.findById(ownerId);
+		});
+
+		log.info("Owner eliminado correctamente - No se encontró el owner con ID: " + ownerId);
+	}
 
 }
