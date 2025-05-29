@@ -8,8 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.tecsup.petclinic.entities.Owner;
 import com.tecsup.petclinic.exceptions.OwnerNotFoundException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Slf4j
@@ -18,14 +17,13 @@ public class OwnerServiceTest {
 	@Autowired
     private OwnerService ownerService;
 
-
 	@Test
 	public void testCreateOwner() {
-		String FIRST_NAME = "robbie";
-		String LAST_NAME = "briceno";
+		String FIRST_NAME = "pashita";
+		String LAST_NAME = "ruiz";
 		String ADDRESS = "Lima";
 		String CITY = "Lima";
-		String TELEPHONE = "912 123 412";
+		String TELEPHONE = "942 574 612";
 
 		Owner owner = new Owner(FIRST_NAME, LAST_NAME, ADDRESS, CITY, TELEPHONE);
 		Owner createdOwner = ownerService.create(owner);
@@ -39,6 +37,20 @@ public class OwnerServiceTest {
 		assertEquals(CITY, createdOwner.getCity());
 		assertEquals(TELEPHONE, createdOwner.getTelephone());
 	}
+	@Test
+	public void testFindOwnerById() {
+		Integer ID = 1;
+		String FIRST_NAME_EXPECTED = "lois";
+
+		Owner owner = null;
+		try {
+			owner = ownerService.findById(ID);
+		} catch (OwnerNotFoundException e) {
+			fail(e.getMessage());
+		}
+		assertEquals(FIRST_NAME_EXPECTED, owner.getFirstName());
+	}
+
 
 
 
