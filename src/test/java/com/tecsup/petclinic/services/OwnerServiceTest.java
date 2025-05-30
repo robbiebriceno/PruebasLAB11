@@ -55,7 +55,7 @@ public class OwnerServiceTest {
 	@Test
 	public void testDeleteOwner() {
 		// ID de un dueño que ya existe en tu base de datos
-		Integer EXISTING_OWNER_ID = 3; // Cambia este valor por un ID real de tu DB
+		Integer EXISTING_OWNER_ID = 4; // Cambia este valor por un ID real de tu DB
 
 		try {
 			// Verificamos que el dueño existe antes de eliminarlo
