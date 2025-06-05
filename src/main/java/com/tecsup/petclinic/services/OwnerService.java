@@ -1,50 +1,62 @@
 package com.tecsup.petclinic.services;
 
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
 
 import com.tecsup.petclinic.entities.Owner;
 import com.tecsup.petclinic.exceptions.OwnerNotFoundException;
-import com.tecsup.petclinic.repositories.OwnerRepository;
 
-@Service
-public class OwnerService {
+/**
+ *
+ * @author jgomezm
+ *
+ */
+public interface OwnerService {
 
-    private final OwnerRepository ownerRepository;
+    /**
+     * Crea un nuevo owner
+     *
+     * @param owner
+     * @return owner creado
+     */
+    Owner create(Owner owner);
 
-    public OwnerService(OwnerRepository ownerRepository) {
-        this.ownerRepository = ownerRepository;
-    }
+    /**
+     * Actualiza un owner existente
+     *
+     * @param owner
+     * @return owner actualizado
+     */
+    Owner update(Owner owner);
 
-    public Owner findById(Integer id) throws OwnerNotFoundException {
-        Optional<Owner> owner = ownerRepository.findById(id);
-        if (owner.isEmpty()) {
-            throw new OwnerNotFoundException("Owner not found with id: " + id);
-        }
-        return owner.get();
-    }
+    /**
+     * Elimina un owner por id
+     *
+     * @param id
+     * @throws OwnerNotFoundException si no existe
+     */
+    void delete(Integer id) throws OwnerNotFoundException;
 
-    public List<Owner> findByFirstName(String firstName) {
-        return ownerRepository.findByFirstNameContainingIgnoreCase(firstName);
-    }
+    /**
+     * Busca un owner por id
+     *
+     * @param id
+     * @return owner encontrado
+     * @throws OwnerNotFoundException si no existe
+     */
+    Owner findById(Integer id) throws OwnerNotFoundException;
 
-    public Owner create(Owner owner) {
-        return ownerRepository.save(owner);
-    }
+    /**
+     * Busca owners por apellido (lastName)
+     *
+     * @param lastName
+     * @return lista de owners con ese apellido
+     */
+    List<Owner> findByLastName(String lastName);
 
-    public Owner update(Owner owner) throws OwnerNotFoundException {
-        if (!ownerRepository.existsById(owner.getId())) {
-            throw new OwnerNotFoundException("Owner not found with id: " + owner.getId());
-        }
-        return ownerRepository.save(owner);
-    }
+    List<Owner> findAll();
 
-    public void delete(Integer id) throws OwnerNotFoundException {
-        if (!ownerRepository.existsById(id)) {
-            throw new OwnerNotFoundException("Owner not found with id: " + id);
-        }
-        ownerRepository.deleteById(id);
-    }
+    /**
+     * Devuelve todos los owners
+     * @return lista de owners
+     */
 }
