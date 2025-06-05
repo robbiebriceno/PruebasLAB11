@@ -1,17 +1,16 @@
 package com.tecsup.petclinic.services;
 
-import lombok.extern.slf4j.Slf4j;
+import com.tecsup.petclinic.entities.Owner;
+import com.tecsup.petclinic.exceptions.OwnerNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.tecsup.petclinic.entities.Owner;
-import com.tecsup.petclinic.exceptions.OwnerNotFoundException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Slf4j
 public class OwnerServiceTest {
 
 	@Autowired
@@ -19,61 +18,57 @@ public class OwnerServiceTest {
 
 	@Test
 	public void testCreateOwner() {
-		String FIRST_NAME = "pashita";
-		String LAST_NAME = "ruiz";
-		String ADDRESS = "Lima";
-		String CITY = "Lima";
-		String TELEPHONE = "942 574 612";
+		Owner owner = new Owner("Carlos", "Torres", "Av. Arequipa", "Lima", "999999999");
+		Owner created = ownerService.create(owner);
 
-		Owner owner = new Owner(FIRST_NAME, LAST_NAME, ADDRESS, CITY, TELEPHONE);
-		Owner createdOwner = ownerService.create(owner);
-
-		log.info("OWNER CREATED: " + createdOwner);
-
-		assertNotNull(createdOwner.getId());
-		assertEquals(FIRST_NAME, createdOwner.getFirstName());
-		assertEquals(LAST_NAME, createdOwner.getLastName());
-		assertEquals(ADDRESS, createdOwner.getAddress());
-		assertEquals(CITY, createdOwner.getCity());
-		assertEquals(TELEPHONE, createdOwner.getTelephone());
-	}
-	@Test
-	public void testFindOwnerById() {
-		Integer ID = 1;
-		String FIRST_NAME_EXPECTED = "pashita";
-
-		Owner owner = null;
-		try {
-			owner = ownerService.findById(ID);
-		} catch (OwnerNotFoundException e) {
-			fail(e.getMessage());
-		}
-		assertEquals(FIRST_NAME_EXPECTED, owner.getFirstName());
+		assertNotNull(created.getId());
+		assertEquals("Carlos", created.getFirstName());
+		assertEquals("Torres", created.getLastName());
 	}
 
+	@Test
+	public void testFindOwnerById() throws OwnerNotFoundException {
+		Owner owner = new Owner("Lucía", "Ramirez", "Calle 123", "Cusco", "987654321");
+		Owner created = ownerService.create(owner);
+
+		Owner found = ownerService.findById(created.getId());
+
+		assertNotNull(found);
+		assertEquals("Lucía", found.getFirstName());
+		assertEquals("Ramirez", found.getLastName());
+	}
 
 	@Test
-	public void testDeleteOwner() {
-		// ID de un dueño que ya existe en tu base de datos
-		Integer EXISTING_OWNER_ID = 4; // Cambia este valor por un ID real de tu DB
+	public void testUpdateOwner() throws OwnerNotFoundException {
+		Owner owner = new Owner("Ana", "Garcia", "Av. Grau", "Arequipa", "111222333");
+		Owner created = ownerService.create(owner);
 
-		try {
-			// Verificamos que el dueño existe antes de eliminarlo
-			Owner owner = ownerService.findById(EXISTING_OWNER_ID);
-			log.info("Dueño a eliminar: " + owner);
+		created.setFirstName("Ana María");
+		created.setCity("Trujillo");
 
-			// Eliminamos el dueño
-			ownerService.delete(EXISTING_OWNER_ID);
+		Owner updated = ownerService.update(created);
 
-			// Verificamos que ya no exista
-			assertThrows(OwnerNotFoundException.class, () -> {
-				ownerService.findById(EXISTING_OWNER_ID);
-			});
+		assertEquals("Ana María", updated.getFirstName());
+		assertEquals("Trujillo", updated.getCity());
+	}
 
-			log.info("¡Dueño eliminado correctamente!");
+	@Test
+	public void testDeleteOwner() throws OwnerNotFoundException {
+		Owner owner = new Owner("Luis", "Flores", "Jr. Piura", "Tacna", "555666777");
+		Owner created = ownerService.create(owner);
 
-		} catch (OwnerNotFoundException e) {
-			fail("El dueño con ID " + EXISTING_OWNER_ID + " no existe en la base de datos");
-		}
+		ownerService.delete(created.getId());
+
+		assertThrows(OwnerNotFoundException.class, () -> {
+			ownerService.findById(created.getId());
+		});
+	}
+
+	@Test
+	public void testFindAllOwners() {
+		List<Owner> owners = ownerService.findAll();
+
+		assertNotNull(owners);
+		assertTrue(owners.size() > 0);
 	}
 }
