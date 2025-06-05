@@ -62,4 +62,37 @@ public class OwnerControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(ownerId));
     }
+
+
+
+    @Test
+    public void testFindExistingOwnerById() throws Exception {
+        int existingId = 1;
+
+        mockMvc.perform(get("/owners/{id}", existingId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(existingId))
+                .andExpect(jsonPath("$.firstName").exists())
+                .andExpect(jsonPath("$.lastName").exists());
+    }
+
+
+
+
+    @Test
+    public void testDeleteExistingOwner() throws Exception {
+        int existingOwnerId = 1;
+
+        // 1. Verificar que el owner existe antes de eliminarlo
+        mockMvc.perform(get("/owners/{id}", existingOwnerId))
+                .andExpect(status().isOk());
+
+        // 2. Eliminar el owner
+        mockMvc.perform(delete("/owners/{id}", existingOwnerId))
+                .andExpect(status().isOk());
+
+        // 3. Verificar que ya no existe
+        mockMvc.perform(get("/owners/{id}", existingOwnerId))
+                .andExpect(status().isNotFound());
+    }
 }
